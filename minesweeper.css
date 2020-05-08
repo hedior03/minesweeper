@@ -6,3 +6,11 @@ table {
 #btn-start {
 	min-width: 200px;
 }
+
+.cell-height {
+	height: 25px;
+}
+
+.cell-width {
+	width :25px;
+}
