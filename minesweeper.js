@@ -1,2 +1,5 @@
 var boardMat;
 
+function start() {
+    
+}

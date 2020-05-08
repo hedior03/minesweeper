@@ -16,6 +16,29 @@
   <body>
     <div id="main-content" class="container-md">
       <h1 class="display-5">Minesweeper</h1>
+
+      <div id="start-form" class="card p-3">
+        <form>
+          <div class="control-group form-row">
+            <div class="col-md">
+              <label for="size">Size:</label>
+              <input type="text" name="size" class="form-control" id="size">
+            </div>
+            <div class="col-md">
+              <label for="quantity">Quantity:</label>
+              <input type="text" name="quantity" class="form-control" id="quantity">
+            </div>
+          </div>
+        </form>
+
+        <button id="btn-start" class="btn btn-primary d-block mx-auto my-3 w-25" onclick="start()">
+          Start
+        </button>
+      </div>
+
+      <div id="board" class="">
+      </div>
+
     </div>
 
     <script type="text/javascript" src="minesweeper.js"></script>
