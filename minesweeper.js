@@ -39,8 +39,8 @@ function generateMatrix(size, quantity) {
 		i = getRandomIntRange(0, size);
 		j = getRandomIntRange(0, size);
 
-		if (board[i][j] !== 11) {
-			board[i][j] = 11;
+		if (board[i][j] !== 9) {
+			board[i][j] = 9;
 			count++;
 		}
 	}
