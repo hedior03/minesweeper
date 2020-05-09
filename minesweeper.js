@@ -16,6 +16,32 @@ function start() {
 
 }
 
+function cellClick(target) {
+	let coords = target.split('-')
+				.map(num => parseInt(num, 10))
+				.filter(num => !isNaN(num));
+
+	console.log(`coords: ${coords}, boardMat: ${boardMat[coords[0]][coords[1]]}`);
+
+	var cell = boardMat[coords[0]][coords[1]];
+
+	const contentCell = (content) => `<p class="p-0 m-0 text-center">${content}</p>`;
+	const mineCell = contentCell("*");
+	const emptyCell = contentCell(" ");
+	
+	if (cell === 0) {
+		// TODO recursion method
+		document.getElementById(target).parentNode.innerHTML = emptyCell;
+		document.getElementById(target).remove();
+	} else if (cell > 8) {
+		document.getElementById(target).parentNode.innerHTML = mineCell;
+		document.getElementById(target).remove();
+	} else {
+		document.getElementById(target).parentNode.innerHTML = contentCell(cell);
+		document.getElementById(target).remove();
+	}
+}
+
 function getBoardUI(size){
     var table = "";
 
