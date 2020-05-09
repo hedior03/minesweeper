@@ -26,18 +26,20 @@ function cellClick(target) {
 	var cell = boardMat[coords[0]][coords[1]];
 
 	const contentCell = (content) => `<p class="p-0 m-0 text-center">${content}</p>`;
-	const mineCell = contentCell("*");
-	const emptyCell = contentCell(" ");
-	
+	const numCell = (content) => contentCell(content);
+	const mineCell = () => contentCell("*");
+	const emptyCell = () => contentCell(" ");
+
 	if (cell === 0) {
 		// TODO recursion method
-		document.getElementById(target).parentNode.innerHTML = emptyCell;
+		document.getElementById(target).parentNode.innerHTML = emptyCell();
 		document.getElementById(target).remove();
 	} else if (cell > 8) {
-		document.getElementById(target).parentNode.innerHTML = mineCell;
+		// TODO Stop Game
+		document.getElementById(target).parentNode.innerHTML = mineCell();
 		document.getElementById(target).remove();
 	} else {
-		document.getElementById(target).parentNode.innerHTML = contentCell(cell);
+		document.getElementById(target).parentNode.innerHTML = numCell(cell);
 		document.getElementById(target).remove();
 	}
 }
