@@ -17,30 +17,27 @@ function start() {
 }
 
 function cellClick(target) {
-	let coords = target.split('-')
+	const coords = target.split('-')
 				.map(num => parseInt(num, 10))
 				.filter(num => !isNaN(num));
 
-	console.log(`coords: ${coords}, boardMat: ${boardMat[coords[0]][coords[1]]}`);
+	const cell = document.getElementById(target);
 
-	var cell = boardMat[coords[0]][coords[1]];
+	const cellContent = boardMat[coords[0]][coords[1]];
 
-	const contentCell = (content) => `<p class="p-0 m-0 text-center">${content}</p>`;
-	const numCell = (content) => contentCell(content);
-	const mineCell = () => contentCell("*");
-	const emptyCell = () => contentCell(" ");
+	const fillCell = (content) => `<p class="p-0 m-0 text-center">${content}</p>`;
+	const numCell = (content) => fillCell(content);
+	const mineCell = () => fillCell("*");
+	const emptyCell = () => fillCell(" ");
 
-	if (cell === 0) {
+	if (cellContent === 0) {
 		// TODO recursion method
 		document.getElementById(target).parentNode.innerHTML = emptyCell();
-		document.getElementById(target).remove();
-	} else if (cell > 8) {
+	} else if (cellContent > 8) {
 		// TODO Stop Game
 		document.getElementById(target).parentNode.innerHTML = mineCell();
-		document.getElementById(target).remove();
 	} else {
-		document.getElementById(target).parentNode.innerHTML = numCell(cell);
-		document.getElementById(target).remove();
+		document.getElementById(target).parentNode.innerHTML = numCell(cellContent);
 	}
 }
 
