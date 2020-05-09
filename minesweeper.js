@@ -32,12 +32,12 @@ function cellClick(target) {
 
 	if (cellContent === 0) {
 		// TODO recursion method
-		cell.parentNode.innerHTML = emptyCell();
+		cell.innerHTML = emptyCell();
 	} else if (cellContent > 8) {
 		// TODO Stop Game
-		cell.parentNode.innerHTML = mineCell();
+		cell.innerHTML = mineCell();
 	} else {
-		cell.parentNode.innerHTML = numCell(cellContent);
+		cell.innerHTML = numCell(cellContent);
 	}
 }
 
@@ -49,8 +49,8 @@ function getBoardUI(size){
     for (var i = 0; i < size; i++) {
         table += `<tr class="cell-height">\n`;
         for (var j = 0; j < size; j++) {
-            table += `<td class="m-0 p-0 b-0 cell-height cell-width">
-                <button class="m-0 p-0 cell-height cell-width" id="cell-${i}-${j}" onclick="cellClick('cell-${i}-${j}')">
+            table += `<td class="m-0 p-0 b-0 cell-height cell-width" id="cell-${i}-${j}">
+                <button class="m-0 p-0 cell-height cell-width" id="btn-${i}-${j}" onclick="cellClick('cell-${i}-${j}')">
                 </button>
                 </td>\n`;
         }
