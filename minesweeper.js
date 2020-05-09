@@ -32,12 +32,12 @@ function cellClick(target) {
 
 	if (cellContent === 0) {
 		// TODO recursion method
-		document.getElementById(target).parentNode.innerHTML = emptyCell();
+		cell.parentNode.innerHTML = emptyCell();
 	} else if (cellContent > 8) {
 		// TODO Stop Game
-		document.getElementById(target).parentNode.innerHTML = mineCell();
+		cell.parentNode.innerHTML = mineCell();
 	} else {
-		document.getElementById(target).parentNode.innerHTML = numCell(cellContent);
+		cell.parentNode.innerHTML = numCell(cellContent);
 	}
 }
 
