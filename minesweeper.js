@@ -1,7 +1,19 @@
 var boardMat;
 
 function start() {
-    
+    var size = parseInt(document.getElementById("size").value);
+	var quantity = parseInt(document.getElementById("quantity").value);
+
+	var board = document.getElementById("board");
+
+	if (isNaN(size) || isNaN(quantity) || size < 0 || size > 50 || quantity < 0 || quantity > 50  || quantity >= size ** 2) {
+		alert("Invalid Settings");
+		return;
+	} else {
+		boardMat = generateMatrix(size,quantity);
+		getBoardUI(size);
+	}
+
 }
 
 function getBoardUI(size){
