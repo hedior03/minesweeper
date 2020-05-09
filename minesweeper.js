@@ -31,14 +31,56 @@ function cellClick(target) {
 	const emptyCell = () => fillCell(" ");
 
 	if (cellContent === 0) {
-		// TODO recursion method
 		cell.innerHTML = emptyCell();
+		return blankCell(...coords, cell);
 	} else if (cellContent > 8) {
 		// TODO Stop Game
 		cell.innerHTML = mineCell();
+		return;
 	} else {
 		cell.innerHTML = numCell(cellContent);
+		return;
 	}
+}
+
+function blankCell(i, j, cell) {
+	cell.classList.add("open");
+
+	const isCellClosed = (i,j) => !document.getElementById(`cell-${i}-${j}`).classList.contains("open");
+	console.log(`current: cell-${i}-${j}`);
+
+	if (i > 0) {
+		if (j > 0 && isCellClosed(i-1, j-1)) {
+			cellClick(`cell-${i-1}-${j-1}`); // (1)
+		}
+		if (j < boardMat.length-1 && isCellClosed(i-1,j+1)) {
+			cellClick(`cell-${i-1}-${j+1}`); // (3)
+		}
+		console.log(`cell-${i-1}-${j}`);
+		if (isCellClosed(i-1, j)) {
+			cellClick(`cell-${i-1}-${j}`); // (2)
+		}
+	}
+	if (i < boardMat.length-1) {
+		if (j > 0 && isCellClosed(i+1, j-1)) {
+			cellClick(`cell-${i+1}-${j-1}`); // (7)
+		}
+		if (j < boardMat.length-1 && isCellClosed(i+1, j+1)) {
+			cellClick(`cell-${i+1}-${j+1}`);// (9)
+		}
+		if (isCellClosed(i+1, j)) {
+			cellClick(`cell-${i+1}-${j}`);// (8)
+		}
+	}
+	if (j > 0 && isCellClosed(i, j-1)) {
+		console.log(`cell-${i}-${j-1}`);
+		cellClick(`cell-${i}-${j-1}`);// (4)
+	}
+	if (j < boardMat.length-1 && isCellClosed(i, j+1)) {
+		cellClick(`cell-${i}-${j+1}`);// (6)
+	}
+
+	return;
 }
 
 function getBoardUI(size){
