@@ -11,7 +11,7 @@ function start() {
 		return;
 	} else {
 		boardMat = generateMatrix(size,quantity);
-		getBoardUI(size);
+		board.innerHTML = getBoardUI(size);
 	}
 
 }
