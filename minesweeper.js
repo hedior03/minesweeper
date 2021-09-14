@@ -17,31 +17,70 @@ function start() {
 }
 
 function cellClick(target) {
-	let coords = target.split('-')
+	const coords = target.split('-')
 				.map(num => parseInt(num, 10))
 				.filter(num => !isNaN(num));
 
-	console.log(`coords: ${coords}, boardMat: ${boardMat[coords[0]][coords[1]]}`);
+	const cell = document.getElementById(target);
 
-	var cell = boardMat[coords[0]][coords[1]];
+	const cellContent = boardMat[coords[0]][coords[1]];
 
-	const contentCell = (content) => `<p class="p-0 m-0 text-center">${content}</p>`;
-	const numCell = (content) => contentCell(content);
-	const mineCell = () => contentCell("*");
-	const emptyCell = () => contentCell(" ");
+	const fillCell = (content) => `<p class="p-0 m-0 text-center">${content}</p>`;
+	const numCell = (content) => fillCell(content);
+	const mineCell = () => fillCell("*");
+	const emptyCell = () => fillCell(" ");
 
-	if (cell === 0) {
-		// TODO recursion method
-		document.getElementById(target).parentNode.innerHTML = emptyCell();
-		document.getElementById(target).remove();
-	} else if (cell > 8) {
+	if (cellContent === 0) {
+		cell.innerHTML = emptyCell();
+		return blankCell(...coords, cell);
+	} else if (cellContent > 8) {
 		// TODO Stop Game
-		document.getElementById(target).parentNode.innerHTML = mineCell();
-		document.getElementById(target).remove();
+		cell.innerHTML = mineCell();
+		return;
 	} else {
-		document.getElementById(target).parentNode.innerHTML = numCell(cell);
-		document.getElementById(target).remove();
+		cell.innerHTML = numCell(cellContent);
+		return;
 	}
+}
+
+function blankCell(i, j, cell) {
+	cell.classList.add("open");
+
+	const isCellClosed = (i,j) => !document.getElementById(`cell-${i}-${j}`).classList.contains("open");
+	console.log(`current: cell-${i}-${j}`);
+
+	if (i > 0) {
+		if (j > 0 && isCellClosed(i-1, j-1)) {
+			cellClick(`cell-${i-1}-${j-1}`); // (1)
+		}
+		if (j < boardMat.length-1 && isCellClosed(i-1,j+1)) {
+			cellClick(`cell-${i-1}-${j+1}`); // (3)
+		}
+		console.log(`cell-${i-1}-${j}`);
+		if (isCellClosed(i-1, j)) {
+			cellClick(`cell-${i-1}-${j}`); // (2)
+		}
+	}
+	if (i < boardMat.length-1) {
+		if (j > 0 && isCellClosed(i+1, j-1)) {
+			cellClick(`cell-${i+1}-${j-1}`); // (7)
+		}
+		if (j < boardMat.length-1 && isCellClosed(i+1, j+1)) {
+			cellClick(`cell-${i+1}-${j+1}`);// (9)
+		}
+		if (isCellClosed(i+1, j)) {
+			cellClick(`cell-${i+1}-${j}`);// (8)
+		}
+	}
+	if (j > 0 && isCellClosed(i, j-1)) {
+		console.log(`cell-${i}-${j-1}`);
+		cellClick(`cell-${i}-${j-1}`);// (4)
+	}
+	if (j < boardMat.length-1 && isCellClosed(i, j+1)) {
+		cellClick(`cell-${i}-${j+1}`);// (6)
+	}
+
+	return;
 }
 
 function getBoardUI(size){
@@ -52,8 +91,8 @@ function getBoardUI(size){
     for (var i = 0; i < size; i++) {
         table += `<tr class="cell-height">\n`;
         for (var j = 0; j < size; j++) {
-            table += `<td class="m-0 p-0 b-0 cell-height cell-width">
-                <button class="m-0 p-0 cell-height cell-width" id="cell-${i}-${j}" onclick="cellClick('cell-${i}-${j}')">
+            table += `<td class="m-0 p-0 b-0 cell-height cell-width" id="cell-${i}-${j}">
+                <button class="m-0 p-0 cell-height cell-width" id="btn-${i}-${j}" onclick="cellClick('cell-${i}-${j}')">
                 </button>
                 </td>\n`;
         }
